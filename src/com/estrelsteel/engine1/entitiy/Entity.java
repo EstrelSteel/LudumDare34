@@ -20,6 +20,7 @@ public class Entity {
 		this.loc = new Location(0, 0, 64, 64);
 		this.controls = new PlayerHandler("PLAYER");
 		this.name = "NULL";
+		this.type = EntityType.UNKOWN;
 		this.activeAnimation = 0;
 	}
 	
@@ -92,6 +93,9 @@ public class Entity {
 	}
 	
 	public Animation getCurrentAnimation() {
+		if(activeAnimation >= type.getAnimations().size()) {
+			return type.getAnimations().get(0);
+		}
 		return type.getAnimations().get(activeAnimation);
 	}
 	
@@ -205,5 +209,6 @@ public class Entity {
 	
 	public void setActiveAnimationNum(int activeAnimation) {
 		this.activeAnimation = activeAnimation;
+		return;
 	}
 }

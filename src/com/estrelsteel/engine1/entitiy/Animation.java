@@ -8,10 +8,12 @@ public class Animation {
 	private int wait;
 	private int maxWait;
 	private boolean paused;
+	private boolean ran;
 	
 	public Animation(int maxWait) {
 		images = new ArrayList<EntityImage>();
 		this.maxWait = maxWait;
+		this.ran = false;
 	}
 	
 	public ArrayList<EntityImage> getImages() {
@@ -34,6 +36,10 @@ public class Animation {
 		return paused;
 	}
 	
+	public boolean hasRan() {
+		return ran;
+	}
+	
 	public boolean equals(Animation animation) {
 		if(images.equals(animation.getImages()) && maxWait == animation.getMaxWait()) {
 			return true;
@@ -44,7 +50,7 @@ public class Animation {
 	}
 	
 	public EntityImage run() {
-		if(!paused) {
+		if(!paused && !ran) {
 			wait++;
 			if(wait >= maxWait) {
 				wait = 0;
@@ -53,6 +59,7 @@ public class Animation {
 			if(frame >= images.size()) {
 				frame = 0;
 			}
+			ran = true;
 		}
 		return images.get(frame);
 	}
@@ -84,6 +91,11 @@ public class Animation {
 	
 	public void setPaused(boolean paused) {
 		this.paused = paused;
+		return;
+	}
+	
+	public void setRan(boolean ran) {
+		this.ran = ran;
 		return;
 	}
 }

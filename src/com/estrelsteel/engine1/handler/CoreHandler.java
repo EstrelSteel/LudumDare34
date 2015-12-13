@@ -10,9 +10,6 @@ import java.awt.event.WindowFocusListener;
 import java.awt.event.WindowStateListener;
 
 import com.estrelsteel.engine1.Engine1;
-import com.estrelsteel.engine1.entitiy.Entity;
-import com.estrelsteel.engine1.tile.Tile;
-import com.estrelsteel.engine1.world.Location;
 
 public class CoreHandler extends WindowAdapter implements WindowStateListener, WindowFocusListener, FocusListener, ComponentListener {
 
@@ -50,6 +47,7 @@ public class CoreHandler extends WindowAdapter implements WindowStateListener, W
 
 	@Override
 	public void componentResized(ComponentEvent e) {
+		/*
 		double scaleWidth = (double) e.getComponent().getWidth() / (double) Engine1.startWidth;
 		double scaleHeight = (double) e.getComponent().getHeight() / (double) Engine1.startHeight;
 		//scaleWidth = scaleWidth - 1;
@@ -73,6 +71,7 @@ public class CoreHandler extends WindowAdapter implements WindowStateListener, W
 			tempLoc.setHeight((int) (scaleHeight * tempLoc.getStartHeight()));
 			entity.setLocation(tempLoc);
 		}
+		*/
 	}
 
 	@Override

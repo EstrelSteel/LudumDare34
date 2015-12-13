@@ -3,13 +3,16 @@ package com.estrelsteel.engine1.handler;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
+import com.estrelsteel.engine1.Engine1;
+
 public class PlayerHandler extends Handler {
 	
 	public enum PlayerControls {
 		UP(87, 79, 38),
 		DOWN(83, 76, 40),
 		RIGHT(68, 186, 39),
-		LEFT(65, 75, 37);
+		LEFT(65, 75, 37),
+		SPACE(32, 13, 9);
 		
 		private int primary;
 		private int secondary;
@@ -75,34 +78,71 @@ public class PlayerHandler extends Handler {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if(PlayerControls.UP.getPrimaryKey() == e.getKeyCode()  || PlayerControls.UP.getSecondaryKey() == e.getKeyCode() || PlayerControls.UP.getTertiaryKey() == e.getKeyCode()) {
+		if(!Engine1.twoButtonControl && (PlayerControls.UP.getPrimaryKey() == e.getKeyCode()  || PlayerControls.UP.getSecondaryKey() == e.getKeyCode() || PlayerControls.UP.getTertiaryKey() == e.getKeyCode())) {
 			PlayerControls.UP.setPressed(true);
 		}
-		if(PlayerControls.DOWN.getPrimaryKey() == e.getKeyCode()  || PlayerControls.DOWN.getSecondaryKey() == e.getKeyCode() || PlayerControls.DOWN.getTertiaryKey() == e.getKeyCode()) {
+		if(!Engine1.twoButtonControl && (PlayerControls.DOWN.getPrimaryKey() == e.getKeyCode()  || PlayerControls.DOWN.getSecondaryKey() == e.getKeyCode() || PlayerControls.DOWN.getTertiaryKey() == e.getKeyCode())) {
 			PlayerControls.DOWN.setPressed(true);
 		}
-		if(PlayerControls.RIGHT.getPrimaryKey() == e.getKeyCode()  || PlayerControls.RIGHT.getSecondaryKey() == e.getKeyCode() || PlayerControls.RIGHT.getTertiaryKey() == e.getKeyCode()) {
+		if(!Engine1.twoButtonControl && (PlayerControls.RIGHT.getPrimaryKey() == e.getKeyCode()  || PlayerControls.RIGHT.getSecondaryKey() == e.getKeyCode() || PlayerControls.RIGHT.getTertiaryKey() == e.getKeyCode())) {
 			PlayerControls.RIGHT.setPressed(true);
 		}
-		if(PlayerControls.LEFT.getPrimaryKey() == e.getKeyCode()  || PlayerControls.LEFT.getSecondaryKey() == e.getKeyCode() || PlayerControls.LEFT.getTertiaryKey() == e.getKeyCode()) {
+		if(!Engine1.twoButtonControl && (PlayerControls.LEFT.getPrimaryKey() == e.getKeyCode()  || PlayerControls.LEFT.getSecondaryKey() == e.getKeyCode() || PlayerControls.LEFT.getTertiaryKey() == e.getKeyCode())) {
 			PlayerControls.LEFT.setPressed(true);
+		}
+		if(PlayerControls.SPACE.getPrimaryKey() == e.getKeyCode()  || PlayerControls.SPACE.getSecondaryKey() == e.getKeyCode() || PlayerControls.SPACE.getTertiaryKey() == e.getKeyCode()) {
+			PlayerControls.SPACE.setPressed(true);
+		}
+		if(Engine1.twoButtonControl && !(PlayerControls.SPACE.getPrimaryKey() == e.getKeyCode()  || PlayerControls.SPACE.getSecondaryKey() == e.getKeyCode() || PlayerControls.SPACE.getTertiaryKey() == e.getKeyCode())) {
+			Engine1.moveDirection++;
+			if(Engine1.moveDirection >= 4) {
+				Engine1.moveDirection = 0;
+			}
+			if(Engine1.moveDirection == 0) {
+				PlayerControls.UP.setPressed(true);
+				PlayerControls.DOWN.setPressed(false);
+				PlayerControls.RIGHT.setPressed(false);
+				PlayerControls.LEFT.setPressed(false);
+			}
+			else if(Engine1.moveDirection == 1) {
+				PlayerControls.UP.setPressed(false);
+				PlayerControls.DOWN.setPressed(false);
+				PlayerControls.RIGHT.setPressed(true);
+				PlayerControls.LEFT.setPressed(false);
+			}
+			else if(Engine1.moveDirection == 2) {
+				PlayerControls.UP.setPressed(false);
+				PlayerControls.DOWN.setPressed(true);
+				PlayerControls.RIGHT.setPressed(false);
+				PlayerControls.LEFT.setPressed(false);
+			}
+			else {
+				PlayerControls.UP.setPressed(false);
+				PlayerControls.DOWN.setPressed(false);
+				PlayerControls.RIGHT.setPressed(false);
+				PlayerControls.LEFT.setPressed(true);
+			}
 		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if(PlayerControls.UP.getPrimaryKey() == e.getKeyCode()  || PlayerControls.UP.getSecondaryKey() == e.getKeyCode() || PlayerControls.UP.getTertiaryKey() == e.getKeyCode()) {
+		if(!Engine1.twoButtonControl && (PlayerControls.UP.getPrimaryKey() == e.getKeyCode()  || PlayerControls.UP.getSecondaryKey() == e.getKeyCode() || PlayerControls.UP.getTertiaryKey() == e.getKeyCode())) {
 			PlayerControls.UP.setPressed(false);
 		}
-		if(PlayerControls.DOWN.getPrimaryKey() == e.getKeyCode()  || PlayerControls.DOWN.getSecondaryKey() == e.getKeyCode() || PlayerControls.DOWN.getTertiaryKey() == e.getKeyCode()) {
+		if(!Engine1.twoButtonControl && (PlayerControls.DOWN.getPrimaryKey() == e.getKeyCode()  || PlayerControls.DOWN.getSecondaryKey() == e.getKeyCode() || PlayerControls.DOWN.getTertiaryKey() == e.getKeyCode())) {
 			PlayerControls.DOWN.setPressed(false);
 		}
-		if(PlayerControls.RIGHT.getPrimaryKey() == e.getKeyCode()  || PlayerControls.RIGHT.getSecondaryKey() == e.getKeyCode() || PlayerControls.RIGHT.getTertiaryKey() == e.getKeyCode()) {
+		if(!Engine1.twoButtonControl && (PlayerControls.RIGHT.getPrimaryKey() == e.getKeyCode()  || PlayerControls.RIGHT.getSecondaryKey() == e.getKeyCode() || PlayerControls.RIGHT.getTertiaryKey() == e.getKeyCode())) {
 			PlayerControls.RIGHT.setPressed(false);
 		}
-		if(PlayerControls.LEFT.getPrimaryKey() == e.getKeyCode()  || PlayerControls.LEFT.getSecondaryKey() == e.getKeyCode() || PlayerControls.LEFT.getTertiaryKey() == e.getKeyCode()) {
+		if(!Engine1.twoButtonControl && (PlayerControls.LEFT.getPrimaryKey() == e.getKeyCode()  || PlayerControls.LEFT.getSecondaryKey() == e.getKeyCode() || PlayerControls.LEFT.getTertiaryKey() == e.getKeyCode())) {
 			PlayerControls.LEFT.setPressed(false);
 		}
+		if(PlayerControls.SPACE.getPrimaryKey() == e.getKeyCode()  || PlayerControls.SPACE.getSecondaryKey() == e.getKeyCode() || PlayerControls.SPACE.getTertiaryKey() == e.getKeyCode()) {
+			PlayerControls.SPACE.setPressed(false);
+		}
+		
 	}
 
 	@Override

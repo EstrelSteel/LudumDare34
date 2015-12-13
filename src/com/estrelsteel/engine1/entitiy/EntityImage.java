@@ -43,7 +43,6 @@ public class EntityImage extends Image {
 		}
 		if(eImg == null) {
 			eImg = getImage().getSubimage(loc.getX(), loc.getY(), loc.getWidth(), loc.getHeight());
-			System.out.println("updating eImg");
 			if(getScan()) {
 				boolean keepScan = false;
 				for(int x = 0; x < eImg.getWidth(); x++) {

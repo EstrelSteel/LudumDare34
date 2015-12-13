@@ -43,7 +43,6 @@ public class MenuImage extends Image {
 		}
 		if(mImg == null) {
 			mImg = getImage().getSubimage(loc.getX(), loc.getY(), loc.getWidth(), loc.getHeight());
-			System.out.println("updating mImg");
 			if(getScan()) {
 				boolean keepScan = false;
 				for(int x = 0; x < mImg.getWidth(); x++) {

@@ -1,7 +1,7 @@
 package com.estrelsteel.engine1.world;
 
 import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 import com.estrelsteel.engine1.Engine1;
@@ -14,22 +14,29 @@ public class World {
 	private ArrayList<Entity> entities = new ArrayList<Entity>();
 	private ArrayList<Camera> cameras = new ArrayList<Camera>();
 	private Camera mainCamera;
+	private String name;
 	
 	private double width;
 	private double height;
 	
-	public World() {
+	public World(String name) {
+		this.name = name;
 		this.width = 1;
 		this.height = 1;
 		this.cameras.add(new Camera(new Location(0, 0)));
 		this.mainCamera = cameras.get(0);
 	}
 	
-	public World(double width, double height) {
+	public World(String name, double width, double height) {
+		this.name = name;
 		this.width = width;
 		this.height = height;
 		this.cameras.add(new Camera(new Location(0, 0)));
 		this.mainCamera = cameras.get(0);
+	}
+	
+	public String getName() {
+		return name;
 	}
 	
 	public double getWidth() {
@@ -71,7 +78,7 @@ public class World {
 		return;
 	}
 	
-	public Graphics renderWorld(Graphics ctx) {
+	public Graphics2D renderWorld(Graphics2D ctx) {
 		mainCamera.focus(this);
 		int x = mainCamera.getLocation().getX();
 		int y = mainCamera.getLocation().getY();
@@ -91,11 +98,13 @@ public class World {
 				displayY = t.getLocation().getY() + y;
 			}
 			ctx.setColor(Color.BLACK);
-			if(!t.getType().getImage().isImageLoaded()) {
-				t.getType().getImage().loadImage();
+			if(!((displayX > Engine1.startWidth || displayX + t.getLocation().getWidth() < 0) && (displayY > Engine1.startHeight || displayY + t.getLocation().getHeight() < 0))) {
+				//System.out.println(t.getType().getName());
+				if(!t.getType().getImage().isImageLoaded()) {
+					t.getType().getImage().loadImage();
+				}
+				ctx.drawImage(t.getType().getImage().getTile(), displayX, displayY, t.getLocation().getWidth(), t.getLocation().getHeight(), null);
 			}
-			ctx.drawImage(t.getType().getImage().getTile(), displayX, displayY, t.getLocation().getWidth(), t.getLocation().getHeight(), null);
-	
 		}
 		for(Entity e : entities) {
 			if(mainCamera.getFollowX()) {
@@ -121,11 +130,13 @@ public class World {
 			else {
 				displayY = e.getLocation().getY() + y;
 			}
-			if(!e.getCurrentImage().isImageLoaded()) {
-				e.getCurrentImage().loadImage();
-			}
-			ctx.drawImage(e.getCurrentImage().getEntity(), displayX, displayY, e.getLocation().getWidth(), e.getLocation().getHeight(), null);
 			
+			if(!((displayX > Engine1.startWidth || displayX + e.getLocation().getWidth() < 0) && (displayY > Engine1.startHeight || displayY + e.getLocation().getHeight() < 0))) {
+				if(!e.getCurrentImage().isImageLoaded()) {
+					e.getCurrentImage().loadImage();
+				}
+				ctx.drawImage(e.getCurrentImage().getEntity(), displayX, displayY, e.getLocation().getWidth(), e.getLocation().getHeight(), null);	
+			}
 		}
 		return ctx;
 	}
@@ -257,5 +268,9 @@ public class World {
 	public void setMainCamera(int camera) {
 		this.mainCamera = cameras.get(camera);
 		return;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
 	}
 }
