@@ -70,7 +70,7 @@ public class Engine1 extends Canvas implements Runnable {
 	
 	public String title = "Flower";
 	public String version = "v0.1a";
-	public int build = 0;
+	public int build = 1;
 	public long time = System.currentTimeMillis();
 	
 	public World mainMenu1 = new World("MAIN_MENU", WIDTH * SCALE, HEIGHT * SCALE);
@@ -119,7 +119,7 @@ public class Engine1 extends Canvas implements Runnable {
 	public boolean passWithoutStone = false;
 	public static boolean twoButtonControl = false;
 	public static int moveDirection = 0;
-	public static boolean reduceUsage = true;
+	public static boolean reduceUsage = false;
 	
 	public int lvl1Finished = 0;
 	public int lvl2Finished = 0;
